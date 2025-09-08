@@ -499,6 +499,26 @@ class home_page(QWidget, Ui_home_page):
 
         # self.gridLayout.addWidget(self.plan_front, 2, 0)
 
+    # Calculator App 
+        calc_front = form_apps()
+        calc_image = os.path.join(base_dir, "images", "logo", "Quest_Calculator_Logo_RGB.png")
+        calc_image = calc_image.replace("\\", "/")
+        calc_front.app_image.setStyleSheet(f"image: url({calc_image});")
+        
+        calc_env_path = os.path.join(base_dir, "app_envs", "env_calc")
+        calc_env_act = os.path.join(base_dir, "app_envs", "env_calc", "Scripts", "python.exe")
+        calc_env_cmd = "calc_selection"
+        calc_script_path = os.path.join(base_dir, "app", "tools", "script_files", "calc.bat")
+        calc_del_name = os.path.join(base_dir, "app_envs", "env_calc")
+        calc_solve = os.path.join(base_dir, "app_envs", "env_calc", "glpk", "GLPK-4.65", "w64")
+        calc_back = app_manager(calc_env_path, calc_env_act, calc_env_cmd, calc_script_path, del_path, calc_del_name, calc_solve, mod)
+        self.calc_obj = gui_connector(calc_front, calc_front, calc_env_path)
+        
+        calc_page = self.add_info_page.add_page("QuESt Calculator", "Eriel Cabrera eecabre@sandia.gov", "An application for basic arthmetic housed inside the QuESt platform. This tool can do addition, subtraction, multiplication, and divison.")
+        
+        calc_about_button = calc_front.about_button
+        self.add_info_page.connect_about(calc_about_button, calc_page)
+        self.gridLayout.addWidget(calc_front, 2, 1)
 
 
 #           connecting the search bar funtion
