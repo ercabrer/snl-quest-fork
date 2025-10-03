@@ -505,14 +505,14 @@ class home_page(QWidget, Ui_home_page):
         calc_image = calc_image.replace("\\", "/")
         calc_front.app_image.setStyleSheet(f"image: url({calc_image});")
         
-        calc_env_path = os.path.join(base_dir, "app_envs", "env_calc")
-        calc_env_act = os.path.join(base_dir, "app_envs", "env_calc", "Scripts", "python.exe")
-        calc_env_cmd = "calc_selection"
+        calc_env_path = os.path.join(base_dir, "app_envs", "env_calculator")
+        calc_env_act = os.path.join(base_dir, "app_envs", "env_calculator", "Scripts", "python.exe")
+        calc_env_cmd = "calculator" # name of the modular folder in github repo
         calc_script_path = os.path.join(base_dir, "app", "tools", "script_files", "calc.bat")
-        calc_del_name = os.path.join(base_dir, "app_envs", "env_calc")
-        calc_solve = os.path.join(base_dir, "app_envs", "env_calc", "glpk", "GLPK-4.65", "w64")
+        calc_del_name = os.path.join(base_dir, "app_envs", "env_calculator")
+        calc_solve = os.path.join(base_dir, "app_envs", "env_calculator", "glpk", "GLPK-4.65", "w64")
         calc_back = app_manager(calc_env_path, calc_env_act, calc_env_cmd, calc_script_path, del_path, calc_del_name, calc_solve, mod)
-        self.calc_obj = gui_connector(calc_front, calc_front, calc_env_path)
+        self.calc_obj = gui_connector(calc_front, calc_back, calc_env_path)
         
         calc_page = self.add_info_page.add_page("QuESt Calculator", "Eriel Cabrera eecabre@sandia.gov", "An application for basic arthmetic housed inside the QuESt platform. This tool can do addition, subtraction, multiplication, and divison.")
         
@@ -558,6 +558,7 @@ class home_page(QWidget, Ui_home_page):
         data_gpt = self.gpt_obj.front.app_search
         data_manager = self.data_man_obj.front.app_search
         energy_equity = self.equity_obj.front.app_search
+        calculator = self.calc_obj.front.app_search
        # analysis_for_regulators = self.afr_obj.front.app_search
 
 

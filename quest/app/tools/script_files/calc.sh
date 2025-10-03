@@ -79,11 +79,11 @@ attempt_install_via_package_manager() {
 }
 
 # Set the path to the virtual environment and requirements file using the updated paths
-VENV_PATH="$(dirname "$0")/../../../app_envs/env_progress"
-SETUP_PATH="$(dirname "$0")/../../../app_envs/env_progress/snl_quest_progress"
+VENV_PATH="$(dirname "$0")/../../../app_envs/env_calculator"
+SETUP_PATH="$(dirname "$0")/../../../app_envs/env_calculator/snl_quest_calculator"
 
 # Set the equity directory name
-progress_dir="snl_quest_progress"
+planning_dir="snl_quest_calculator"
 
 # Create the virtual environment if it doesn't exist
 if [ ! -d "$VENV_PATH" ]; then
@@ -99,11 +99,10 @@ sudo apt-get install -y python3-dev libblas-dev liblapack-dev gfortran
 
 
 # Create a directory within the virtual environment
-mkdir -p "$VENV_PATH/$progress_dir"
+mkdir -p "$VENV_PATH/$calc_dir"
 
 # Clone the GitHub repository
-# git clone https://github.com/sandialabs/quest_progress.git "$VENV_PATH/snl_quest_progress"
-git clone https://github.com/sandialabs/snl-progress.git "$VENV_PATH/snl_quest_progress" 
+git clone https://github.com/ercabrer/pyside6-calculator.git "$VENV_PATH/snl_quest_calculator"
 
 # Install using setup.py
 pip install -e "$SETUP_PATH"
