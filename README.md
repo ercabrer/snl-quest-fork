@@ -166,63 +166,61 @@ Rosetta 2 allows you to run Intel-based applications on Apple Silicon. To instal
    ```bash
    softwareupdate --install-rosetta --agree-to-license
    ```
-    Close the Terminal completely by using Command + Q or selecting Quit Terminal from the menu.
+   Close the Terminal completely by using Command + Q or selecting Quit Terminal from the menu.
 
 2. Configure the Terminal to Open Using Rosetta
 
 To ensure that the Terminal runs in Rosetta mode:
 
-    Open Finder and navigate to Applications > Utilities.
-    Locate the Terminal application.
-    Right-click on Terminal and select Get Info.
-    In the Get Info window, check the box that says Open using Rosetta.
-    Close the Get Info window.
+    1.Open Finder and navigate to Applications > Utilities.
+    2.Locate the Terminal application.
+    3.Right-click on Terminal and select Get Info.
+    4.In the Get Info window, check the box that says Open using Rosetta.
+    5.Close the Get Info window.
 
 3. Open a Terminal with Rosetta Active
 
 After configuring the Terminal to open using Rosetta:
-
-    Open the Terminal again.
-    Verify that Rosetta is active by running the following command:
-
-      ```bash
-       arch
-      ```
-
-    You should see i386 as the output, indicating that the Terminal is running in Rosetta mode.
+   Open the Terminal again.
+   Verify that Rosetta is active by running the following command:
+   ```bash
+   arch
+   ```
+   You should see i386 as the output, indicating that the Terminal is running in Rosetta mode.
 
 4. Install Intel Homebrew
 
 With Rosetta active, install Intel Homebrew:
 
-    Run the following command:
+   Run the following command:
 
-      ```bash
-      arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      ```
+   ```bash
+   arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
 
 
-    Follow the on-screen instructions to complete the installation.
+   Follow the on-screen instructions to complete the installation.
 
 5. Install Python 3.9 (Intel Version)
 
 After installing Intel Homebrew, use it to install Python 3.9:
 
     Run the following command:
-      ```bash
-      arch -x86_64 /usr/local/bin/brew install python@3.9
-      ```
-    Verify the installation by checking the Python version and architecture:
+
+   ```bash
+   arch -x86_64 /usr/local/bin/brew install python@3.9
+   ```
+
+   Verify the installation by checking the Python version and architecture:
 
    ```bash
        arch -x86_64 /usr/local/opt/python@3.9/bin/python3.9 -c "import platform; print('Python Version:', platform.python_version()); print('Architecture:', platform.machine())"
    ```
 
+   You should see output similar to:
 
-    You should see output similar to:
-
-    Python Version: 3.9.x
-    Architecture: x86_64
+   Python Version: 3.9.x
+   Architecture: x86_64
 
 6. Create a folder on the Desktop called quest_folder
 
@@ -348,9 +346,9 @@ After installing Intel Homebrew, use it to install Python 3.9:
     ```
 8. Run QuESt with the following command:
 
-        ```bash
-        python3 -m quest
-        ```
+   ```bash
+   python3 -m quest
+   ```
 
 ## Installation for Developers:
 
