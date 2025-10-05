@@ -186,7 +186,7 @@ After configuring the Terminal to open using Rosetta:
    ```bash
    arch
    ```
-   You should see i386 as the output, indicating that the Terminal is running in Rosetta mode.
+   You should see `i386` as the output, indicating that the Terminal is running in Rosetta mode.
 
 4. Install Intel Homebrew
 
@@ -205,7 +205,7 @@ With Rosetta active, install Intel Homebrew:
 
 After installing Intel Homebrew, use it to install Python 3.9:
 
-    Run the following command:
+   Run the following command:
 
    ```bash
    arch -x86_64 /usr/local/bin/brew install python@3.9
@@ -219,8 +219,10 @@ After installing Intel Homebrew, use it to install Python 3.9:
 
    You should see output similar to:
 
+   ```bash
    Python Version: 3.9.x
    Architecture: x86_64
+   ```
 
 6. Create a folder on the Desktop called quest_folder
 
