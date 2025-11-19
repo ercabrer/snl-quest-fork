@@ -10,6 +10,7 @@ config.ini
 **/*.egg-info/
 **/__pycache__/
 *.pyc
+.vscode
 venv/
 quest_20/
 quest_20b/
