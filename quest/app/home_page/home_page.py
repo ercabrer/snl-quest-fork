@@ -566,7 +566,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.widget_names = [
             "tech_selection", "evaluation", "behind_the_meter",
-            "performance", "energy_equity", "microgrid", "planning", "data_gpt", "data_manager", "progress"
+            "performance", "energy_equity", "microgrid", "planning", "data_gpt", "data_manager", "progress", "calculator"
             ]
 
         for widget in self.widget_names:
