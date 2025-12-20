@@ -559,25 +559,37 @@ class home_page(QWidget, Ui_home_page):
         data_manager = self.data_man_obj.front.app_search
         energy_equity = self.equity_obj.front.app_search
         calculator = self.calc_obj.front.app_search
-       # analysis_for_regulators = self.afr_obj.front.app_search
+        # analysis_for_regulators = self.afr_obj.front.app_search
 
 
-#           list of apps to search
-
+        # list of apps to search
         self.widget_names = [
             "tech_selection", "evaluation", "behind_the_meter",
             "performance", "energy_equity", "microgrid", "planning", "data_gpt", "data_manager", "progress", "calculator"
             ]
+        
+        # search text
+        search_text = text.strip().lower()
+
+        # Split the search text into individual terms
+        search_terms = search_text.split()
 
         for widget in self.widget_names:
-
-            if text.lower() in widget.lower():
-
+            # Check if all search terms are present in the widget name
+            if all(term in widget.lower() for term in search_terms):
                 eval(widget).setVisible(True)
-
             else:
-
                 eval(widget).setVisible(False)
+
+        # for widget in self.widget_names:
+
+        #     if text.lower() in widget.lower():
+
+        #         eval(widget).setVisible(True)
+
+        #     else:
+
+        #         eval(widget).setVisible(False)
 
 if __name__ == '__main__':
     home_page()
