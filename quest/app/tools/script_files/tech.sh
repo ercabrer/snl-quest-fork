@@ -82,7 +82,8 @@ attempt_install_via_package_manager() {
 }
 
 # Set the repository URL and branch name
-REPO_URL="https://github.com/sandialabs/snl-quest.git"
+# REPO_URL="https://github.com/sandialabs/snl-quest.git"
+REPO_URL="https://github.com/ercabrer/snl-quest-fork.git"
 BRANCH_NAME="snl_libraries"
 
 # Set the sparse checkout directory
