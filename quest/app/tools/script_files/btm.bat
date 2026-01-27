@@ -1,7 +1,8 @@
 @echo off
 
 REM Set the repository URL and branch name
-set REPO_URL=https://github.com/sandialabs/snl-quest.git
+@REM set REPO_URL=https://github.com/sandialabs/snl-quest.git
+set REPO_URL=https://github.com/ercabrer/snl-quest-fork.git
 set BRANCH_NAME=snl_libraries
 
 REM Set the sparse checkout directory
