@@ -4,30 +4,29 @@ from PySide6.QtCore import (
     QPropertyAnimation,
     QEasingCurve,
 )
-from PySide6.QtWidgets import (
-    QMenu,
-    QWidget,
-    QVBoxLayout,
-    QTextBrowser
-)
+from PySide6.QtWidgets import QMenu, QWidget, QVBoxLayout, QTextBrowser
 from functools import partial
 from quest.app.home_page.ui.ui_home_page import Ui_home_page
 from quest.app.home_page.front_end import form_apps
 from quest.app.home_page.home_back_end import app_manager
 import sys
+
 # home_dir = os.path.dirname(__file__)
 # base_dir = os.path.join(home_dir, "..", "..")
 
 from quest.paths import get_path
+
 base_dir = get_path()
 
-class gui_connector():
+
+class gui_connector:
     """
     Connects the front-end GUI with the back-end logic for managing application installation and removal.
 
     This class handles the interactions between the GUI elements and the back-end processes,
     updating the GUI based on the state of the application installation or removal.
     """
+
     def __init__(self, front_end, back_end, state):
         """
         Initialize the GUI connector with the front-end, back-end, and state information.
@@ -58,7 +57,7 @@ class gui_connector():
         and starts the installation process. It updates the button text based on the
         installation status and connects the back-end's finished signal to reset the GUI.
         """
-        self.front.progress_bar.setRange(0,0)
+        self.front.progress_bar.setRange(0, 0)
         self.front.install_button.setEnabled(False)
         self.back.install()
         if os.path.isdir(self.state):
@@ -74,7 +73,7 @@ class gui_connector():
         This method sets the progress bar to determinate, enables the install button,
         and updates the button text based on the installation status.
         """
-        self.front.progress_bar.setRange(0,100)
+        self.front.progress_bar.setRange(0, 100)
         self.front.install_button.setEnabled(True)
         self.front.install_button.setChecked(False)
         if os.path.isdir(self.state):
@@ -90,12 +89,13 @@ class gui_connector():
         and starts the removal process. It updates the button text to 'Uninstalling'
         and connects the back-end's finished signal to reset the GUI.
         """
-        self.front.progress_bar.setRange(0,0)
+        self.front.progress_bar.setRange(0, 0)
         self.front.install_button.setChecked(True)
         self.front.install_button.setEnabled(False)
-        self.front.install_button.setText('Uninstalling')
+        self.front.install_button.setText("Uninstalling")
         self.back.remove_app()
         self.back.runner.signals.finished.connect(self.reset_gui)
+
 
 class InfoPage(QWidget):
     """
@@ -103,6 +103,7 @@ class InfoPage(QWidget):
 
     This class sets up a QTextBrowser to display formatted HTML content.
     """
+
     def __init__(self, title, contact, info):
         """
         Initialize the InfoPage with the given title, contact, and info.
@@ -135,14 +136,14 @@ class InfoPage(QWidget):
         self.setLayout(self.layout)
 
 
-
-class info_drop():
+class info_drop:
     """
     Manage the dynamic drop-down GUI updates.
 
     This class handles the creation and management of information pages within a stacked widget,
     and provides methods to connect buttons to these pages.
     """
+
     def __init__(self, about_info, stacked):
         """
         Initialize the info_drop manager with the given about_info widget and stacked widget.
@@ -175,8 +176,6 @@ class info_drop():
         index = self.stack.addWidget(page)
         return index
 
-
-
     def connect_about(self, button, page_index):
         """
         Connect a button to navigate to a specific information page.
@@ -198,9 +197,9 @@ class info_drop():
 
         height = self.about_info.height()
         if height == 0:
-                newheight = 450
+            newheight = 450
         else:
-                newheight = 450
+            newheight = 450
         self.stack.setCurrentIndex(page_index)
         self.animation = QPropertyAnimation(self.about_info, b"maximumHeight")
         self.animation.setDuration(250)
@@ -223,19 +222,19 @@ class home_page(QWidget, Ui_home_page):
     def __init__(self):
         """Initialize the home page."""
         super().__init__()
-#           Set up the ui
+        #           Set up the ui
         self.setupUi(self)
-#           Thread runner
+        #           Thread runner
         self.threadpool = QThreadPool()
-#           gui objects for the about page class
+        #           gui objects for the about page class
         about = self.about_info
         stacked = self.stackedWidget_2
-#       path to deletion tool
+        #       path to deletion tool
         del_path = os.path.join(base_dir, "app", "tools", "env_delete", "delete_env.py")
-#       package entry point identifier
-        mod = '-m'
+        #       package entry point identifier
+        mod = "-m"
 
-#       declare info page
+        #       declare info page
 
         self.add_info_page = info_drop(about, stacked)
 
@@ -246,39 +245,77 @@ class home_page(QWidget, Ui_home_page):
         tech_front.app_image.setStyleSheet(f"image: url({tech_image});")
 
         tech_env_path = os.path.join(base_dir, "app_envs", "env_tech")
-        tech_env_act = os.path.join(base_dir, "app_envs", "env_tech", "Scripts", "python.exe")
+        tech_env_act = os.path.join(
+            base_dir, "app_envs", "env_tech", "Scripts", "python.exe"
+        )
         tech_env_cmd = "tech_selection"
-        tech_script_path = os.path.join(base_dir, "app", "tools", "script_files", "tech.bat")
+        tech_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "tech.bat"
+        )
         tech_del_name = os.path.join(base_dir, "app_envs", "env_tech")
-        tech_solve = os.path.join(base_dir,"app_envs", "env_tech", "glpk", "GLPK-4.65", "w64" )
-        tech_back = app_manager(tech_env_path, tech_env_act, tech_env_cmd, tech_script_path, del_path, tech_del_name, tech_solve, mod)
+        tech_solve = os.path.join(
+            base_dir, "app_envs", "env_tech", "glpk", "GLPK-4.65", "w64"
+        )
+        tech_back = app_manager(
+            tech_env_path,
+            tech_env_act,
+            tech_env_cmd,
+            tech_script_path,
+            del_path,
+            tech_del_name,
+            tech_solve,
+            mod,
+        )
         self.tech_obj = gui_connector(tech_front, tech_back, tech_env_path)
 
-
-        tech_page = self.add_info_page.add_page("QuESt Technology Selection", "Tu Nguyen tunguy@sandia.gov","An application for identifying the energy storage technologies most suitable for a given project. This tool is based on multiple parameters that characterize each storage technology; the technologies that do not satisfy the minimum application requirements are filtered out and the remaining technologies are ranked to indicate their compatibility to the desired project.")
+        tech_page = self.add_info_page.add_page(
+            "QuESt Technology Selection",
+            "Tu Nguyen tunguy@sandia.gov",
+            "An application for identifying the energy storage technologies most suitable for a given project. This tool is based on multiple parameters that characterize each storage technology; the technologies that do not satisfy the minimum application requirements are filtered out and the remaining technologies are ranked to indicate their compatibility to the desired project.",
+        )
         tech_about_button = tech_front.about_button
         self.add_info_page.connect_about(tech_about_button, tech_page)
         self.gridLayout.addWidget(tech_front, 0, 0)
 
-
         # Evaluation app
         eval_front = form_apps()
-        eval_image = os.path.join(base_dir, "images", "logo", "Quest_EvaluationLogo_RGB.png")
-       # eval_image = os.path.join(base_dir, "images", "logo", "Quest_Logo_RGB_Reversed.png")
+        eval_image = os.path.join(
+            base_dir, "images", "logo", "Quest_EvaluationLogo_RGB.png"
+        )
+        # eval_image = os.path.join(base_dir, "images", "logo", "Quest_Logo_RGB_Reversed.png")
         eval_image = eval_image.replace("\\", "/")
         eval_front.app_image.setStyleSheet(f"image: url({eval_image});")
 
         eval_env_path = os.path.join(base_dir, "app_envs", "env_eval")
-        eval_env_act = os.path.join(base_dir, "app_envs", "env_eval", "Scripts", "python.exe")
+        eval_env_act = os.path.join(
+            base_dir, "app_envs", "env_eval", "Scripts", "python.exe"
+        )
         eval_env_cmd = "valuation"
-        eval_script_path = os.path.join(base_dir, "app", "tools", "script_files", "eval.bat")
+        eval_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "eval.bat"
+        )
         eval_del_name = os.path.join(base_dir, "app_envs", "env_eval")
-        eval_solve = os.path.join(base_dir,"app_envs", "env_eval", "glpk", "GLPK-4.65", "w64" )
-        eval_back= app_manager(eval_env_path, eval_env_act, eval_env_cmd, eval_script_path, del_path, eval_del_name, eval_solve, mod)
+        eval_solve = os.path.join(
+            base_dir, "app_envs", "env_eval", "glpk", "GLPK-4.65", "w64"
+        )
+        eval_back = app_manager(
+            eval_env_path,
+            eval_env_act,
+            eval_env_cmd,
+            eval_script_path,
+            del_path,
+            eval_del_name,
+            eval_solve,
+            mod,
+        )
         self.eval_obj = gui_connector(eval_front, eval_back, eval_env_path)
 
         eval_about_button = eval_front.about_button
-        eval_page = self.add_info_page.add_page("QuESt Valuation", "Tu Nguyen tunguy@sandia.gov","An application for energy storage valuation, an analysis where the maximum revenue of a hypothetical energy storage device is estimated using historical market data. This is done by determining the sequence of state of charge management actions that optimize revenue generation, assuming perfect foresight of the historical data. QuESt Valuation is aimed at optimizing value stacking for ISO/RTO services such as energy arbitrage and frequency regulation.")
+        eval_page = self.add_info_page.add_page(
+            "QuESt Valuation",
+            "Tu Nguyen tunguy@sandia.gov",
+            "An application for energy storage valuation, an analysis where the maximum revenue of a hypothetical energy storage device is estimated using historical market data. This is done by determining the sequence of state of charge management actions that optimize revenue generation, assuming perfect foresight of the historical data. QuESt Valuation is aimed at optimizing value stacking for ISO/RTO services such as energy arbitrage and frequency regulation.",
+        )
         self.add_info_page.connect_about(eval_about_button, eval_page)
         self.gridLayout.addWidget(eval_front, 0, 1)
 
@@ -289,17 +326,35 @@ class home_page(QWidget, Ui_home_page):
         perf_front.app_image.setStyleSheet(f"image: url({perf_image});")
 
         perf_env_path = os.path.join(base_dir, "app_envs", "env_perf")
-        perf_env_act = os.path.join(base_dir, "app_envs", "env_perf", "Scripts", "python.exe")
+        perf_env_act = os.path.join(
+            base_dir, "app_envs", "env_perf", "Scripts", "python.exe"
+        )
         perf_env_cmd = "performance"
-        perf_script_path = os.path.join(base_dir, "app", "tools", "script_files", "perf.bat")
+        perf_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "perf.bat"
+        )
         perf_del_name = os.path.join(base_dir, "app_envs", "env_perf")
-        perf_solve = os.path.join(base_dir,"app_envs", "env_perf", "glpk", "GLPK-4.65", "w64" )
-        perf_back=app_manager(perf_env_path, perf_env_act, perf_env_cmd, perf_script_path, del_path, perf_del_name, perf_solve, mod)
-        self.perf_obj= gui_connector(perf_front, perf_back, perf_env_path)
-
+        perf_solve = os.path.join(
+            base_dir, "app_envs", "env_perf", "glpk", "GLPK-4.65", "w64"
+        )
+        perf_back = app_manager(
+            perf_env_path,
+            perf_env_act,
+            perf_env_cmd,
+            perf_script_path,
+            del_path,
+            perf_del_name,
+            perf_solve,
+            mod,
+        )
+        self.perf_obj = gui_connector(perf_front, perf_back, perf_env_path)
 
         perf_about_button = perf_front.about_button
-        perf_page = self.add_info_page.add_page("QuESt Performance", "Walker Olis wolis@sandia.gov", "An application for analyzing battery energy storage system performance due to parasitic heating, ventilation, and air conditioning loads. This tool leverages the building simulation tool EnergyPlus to model the energy consumption of a particular battery housing.")
+        perf_page = self.add_info_page.add_page(
+            "QuESt Performance",
+            "Walker Olis wolis@sandia.gov",
+            "An application for analyzing battery energy storage system performance due to parasitic heating, ventilation, and air conditioning loads. This tool leverages the building simulation tool EnergyPlus to model the energy consumption of a particular battery housing.",
+        )
         self.add_info_page.connect_about(perf_about_button, perf_page)
 
         self.gridLayout.addWidget(perf_front, 0, 2)
@@ -311,41 +366,90 @@ class home_page(QWidget, Ui_home_page):
         btm_front.app_image.setStyleSheet(f"image: url({btm_image});")
 
         btm_env_path = os.path.join(base_dir, "app_envs", "env_btm")
-        btm_env_act = os.path.join(base_dir, "app_envs", "env_btm", "Scripts", "python.exe")
+        btm_env_act = os.path.join(
+            base_dir, "app_envs", "env_btm", "Scripts", "python.exe"
+        )
         btm_env_cmd = "btm"
-        btm_script_path = os.path.join(base_dir, "app", "tools", "script_files", "btm.bat")
+        btm_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "btm.bat"
+        )
         btm_del_name = os.path.join(base_dir, "app_envs", "env_btm")
-        btm_solve = os.path.join(base_dir,"app_envs", "env_btm", "glpk", "GLPK-4.65", "w64" )
-        btm_back = app_manager(btm_env_path, btm_env_act, btm_env_cmd, btm_script_path, del_path, btm_del_name, btm_solve, mod)
+        btm_solve = os.path.join(
+            base_dir, "app_envs", "env_btm", "glpk", "GLPK-4.65", "w64"
+        )
+        btm_back = app_manager(
+            btm_env_path,
+            btm_env_act,
+            btm_env_cmd,
+            btm_script_path,
+            del_path,
+            btm_del_name,
+            btm_solve,
+            mod,
+        )
         self.btm_obj = gui_connector(btm_front, btm_back, btm_env_path)
 
         btm_about_button = btm_front.about_button
-        btm_page = self.add_info_page.add_page("QuESt BTM", "Tu Nguyen tunguy@sandia.gov", "A collection of tools for behind-the-meter (BTM) energy storage systems: <br>*Estimate cost savings for time-of-use and/or net-metering customers")
+        btm_page = self.add_info_page.add_page(
+            "QuESt BTM",
+            "Tu Nguyen tunguy@sandia.gov",
+            "A collection of tools for behind-the-meter (BTM) energy storage systems: <br>*Estimate cost savings for time-of-use and/or net-metering customers",
+        )
         self.add_info_page.connect_about(btm_about_button, btm_page)
 
         self.gridLayout.addWidget(btm_front, 0, 3)
 
         # Microgrid app
         micro_front = form_apps()
-        micro_image = os.path.join(base_dir, "images", "logo", "Quest_Microgrid_Logo_RGB.png")
+        micro_image = os.path.join(
+            base_dir, "images", "logo", "Quest_Microgrid_Logo_RGB.png"
+        )
         micro_image = micro_image.replace("\\", "/")
         micro_front.app_image.setStyleSheet(f"image: url({micro_image});")
 
         micro_env_path = os.path.join(base_dir, "app_envs", "env_micro")
-        micro_env_act = os.path.join(base_dir, "app_envs", "env_micro", "Scripts", "python.exe")
-        if sys.platform.startswith('win'):
-            micro_env_cmd = os.path.join(base_dir, "app_envs", "env_micro", "Lib", "site-packages", "ssim", "ui", "kivy", "ssimapp.py")
+        micro_env_act = os.path.join(
+            base_dir, "app_envs", "env_micro", "Scripts", "python.exe"
+        )
+        if sys.platform.startswith("win"):
+            micro_env_cmd = os.path.join(
+                base_dir,
+                "app_envs",
+                "env_micro",
+                "Lib",
+                "site-packages",
+                "ssim",
+                "ui",
+                "kivy",
+                "ssimapp.py",
+            )
             micro_mod = None
         else:
-            micro_env_cmd = os.path.join(base_dir, "app_envs", "env_micro", "bin", "ssim")
+            micro_env_cmd = os.path.join(
+                base_dir, "app_envs", "env_micro", "bin", "ssim"
+            )
             micro_mod = "exe"
-        micro_script_path = os.path.join(base_dir, "app", "tools", "script_files", "micro.bat")
+        micro_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "micro.bat"
+        )
         micro_del_name = os.path.join(base_dir, "app_envs", "env_micro")
-        micro_back = app_manager(micro_env_path, micro_env_act, micro_env_cmd, micro_script_path, del_path, micro_del_name, mod=micro_mod)
+        micro_back = app_manager(
+            micro_env_path,
+            micro_env_act,
+            micro_env_cmd,
+            micro_script_path,
+            del_path,
+            micro_del_name,
+            mod=micro_mod,
+        )
         self.micro_obj = gui_connector(micro_front, micro_back, micro_env_path)
 
         micro_about_button = micro_front.about_button
-        micro_page = self.add_info_page.add_page("QuESt Microgrid", "John Eddy jpeddy@sandia.gov", "The QuESt Microgrid app is a Discrete Event Simulator for evaluating energy storage systems connected to electrical power distribution systems.")
+        micro_page = self.add_info_page.add_page(
+            "QuESt Microgrid",
+            "John Eddy jpeddy@sandia.gov",
+            "The QuESt Microgrid app is a Discrete Event Simulator for evaluating energy storage systems connected to electrical power distribution systems.",
+        )
         self.add_info_page.connect_about(micro_about_button, micro_page)
 
         self.gridLayout.addWidget(micro_front, 1, 0)
@@ -357,108 +461,216 @@ class home_page(QWidget, Ui_home_page):
         gpt_front.app_image.setStyleSheet(f"image: url({gpt_image});")
 
         gpt_env_path = os.path.join(base_dir, "app_envs", "env_viz")
-        gpt_env_act = os.path.join(base_dir, "app_envs", "env_viz", "Scripts", "python.exe")
+        gpt_env_act = os.path.join(
+            base_dir, "app_envs", "env_viz", "Scripts", "python.exe"
+        )
         gpt_env_cmd = os.path.join(base_dir, "snl_libraries", "gpt", "main.py")
-        gpt_script_path = os.path.join(base_dir, "app", "tools", "script_files", "viz.bat")
-        gpt_del_path = os.path.join(base_dir, "app_envs", "env_viz",)
-        gpt_back = app_manager(gpt_env_path, gpt_env_act, gpt_env_cmd, gpt_script_path, del_path, gpt_del_path)
+        gpt_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "viz.bat"
+        )
+        gpt_del_path = os.path.join(
+            base_dir,
+            "app_envs",
+            "env_viz",
+        )
+        gpt_back = app_manager(
+            gpt_env_path,
+            gpt_env_act,
+            gpt_env_cmd,
+            gpt_script_path,
+            del_path,
+            gpt_del_path,
+        )
         self.gpt_obj = gui_connector(gpt_front, gpt_back, gpt_env_path)
 
         gpt_about_button = gpt_front.about_button
-        gpt_page = self.add_info_page.add_page("QuESt-GPT<br><span style='font-size:16px; font-weight:bold;'> AI-powered tool for data analysis and visualization</span>", "Tu Nguyen tunguy@sandia.gov", "This application helps users analyze and visualize their dataset (in CSV files). The application utilizes Large Language Models (LLMs) to translate users queries into python codes for performing data analysis and visualization. Currently, GPT4 models (OpenAI's API: https://openai.com/product) and codellama2 model (Replicate's API: https://replicate.com/) are used within the application. ")
+        gpt_page = self.add_info_page.add_page(
+            "QuESt-GPT<br><span style='font-size:16px; font-weight:bold;'> AI-powered tool for data analysis and visualization</span>",
+            "Tu Nguyen tunguy@sandia.gov",
+            "This application helps users analyze and visualize their dataset (in CSV files). The application utilizes Large Language Models (LLMs) to translate users queries into python codes for performing data analysis and visualization. Currently, GPT4 models (OpenAI's API: https://openai.com/product) and codellama2 model (Replicate's API: https://replicate.com/) are used within the application. ",
+        )
         self.add_info_page.connect_about(gpt_about_button, gpt_page)
 
         self.gridLayout.addWidget(gpt_front, 1, 1)
 
         # Data manager app
         data_man_front = form_apps()
-        data_man_image = os.path.join(base_dir, "images", "logo", "Quest_Datamanager_Logo_RGB.png")
+        data_man_image = os.path.join(
+            base_dir, "images", "logo", "Quest_Datamanager_Logo_RGB.png"
+        )
         data_man_image = data_man_image.replace("\\", "/")
         data_man_front.app_image.setStyleSheet(f"image: url({data_man_image});")
 
         data_man_env_path = os.path.join(base_dir, "app_envs", "env_data")
-        data_man_env_act = os.path.join(base_dir, "app_envs", "env_data", "Scripts", "python.exe")
+        data_man_env_act = os.path.join(
+            base_dir, "app_envs", "env_data", "Scripts", "python.exe"
+        )
         data_man_env_cmd = "data_manager"
-        data_man_script_path = os.path.join(base_dir, "app", "tools", "script_files", "manager.bat")
+        data_man_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "manager.bat"
+        )
         data_man_del_path = os.path.join(base_dir, "app_envs", "env_data")
-        data_man_solve = os.path.join(base_dir,"app_envs", "env_data", "glpk", "GLPK-4.65", "w64" )
-        data_man_back = app_manager(data_man_env_path, data_man_env_act, data_man_env_cmd, data_man_script_path, del_path, data_man_del_path, data_man_solve, mod)
-        self.data_man_obj = gui_connector(data_man_front, data_man_back, data_man_env_path)
+        data_man_solve = os.path.join(
+            base_dir, "app_envs", "env_data", "glpk", "GLPK-4.65", "w64"
+        )
+        data_man_back = app_manager(
+            data_man_env_path,
+            data_man_env_act,
+            data_man_env_cmd,
+            data_man_script_path,
+            del_path,
+            data_man_del_path,
+            data_man_solve,
+            mod,
+        )
+        self.data_man_obj = gui_connector(
+            data_man_front, data_man_back, data_man_env_path
+        )
 
         data_man_about_button = data_man_front.about_button
-        data_man_page = self.add_info_page.add_page("QuESt Data Manager", "Tu Nguyen tunguy@sandia.gov", "An application for acquiring data from open sources. Data selected for download is acquired in a format and structure compatible with other QuESt applications. Data that can be acquired includes:<br><ul><li>Independent system operators (ISOs) and regional transmission organization (RTOs) market and operations data </li><li>U.S. utility rate structures (tariffs) </li><li>Commercial or residential building load profiles </li><li>Photovoltaic (PV) power profiles</li></ul>")
+        data_man_page = self.add_info_page.add_page(
+            "QuESt Data Manager",
+            "Tu Nguyen tunguy@sandia.gov",
+            "An application for acquiring data from open sources. Data selected for download is acquired in a format and structure compatible with other QuESt applications. Data that can be acquired includes:<br><ul><li>Independent system operators (ISOs) and regional transmission organization (RTOs) market and operations data </li><li>U.S. utility rate structures (tariffs) </li><li>Commercial or residential building load profiles </li><li>Photovoltaic (PV) power profiles</li></ul>",
+        )
         self.add_info_page.connect_about(data_man_about_button, data_man_page)
 
         self.gridLayout.addWidget(data_man_front, 1, 2)
 
         # Energy Equity app
         equity_front = form_apps()
-        equity_image = os.path.join(base_dir, "images", "logo", "Quest_Equity_Logo_RGB.png")
+        equity_image = os.path.join(
+            base_dir, "images", "logo", "Quest_Equity_Logo_RGB.png"
+        )
         equity_image = equity_image.replace("\\", "/")
         equity_front.app_image.setStyleSheet(f"image: url({equity_image});")
 
         equity_env_path = os.path.join(base_dir, "app_envs", "env_energy", "equity")
-        equity_env_act = os.path.join(base_dir, "app_envs", "env_energy", "Scripts", "python.exe")
-        equity_env_cmd = os.path.join(base_dir, "app_envs", "env_energy", "equity", "main.py")
-        equity_script_path = os.path.join(base_dir, "app", "tools", "script_files", "energy.bat")
+        equity_env_act = os.path.join(
+            base_dir, "app_envs", "env_energy", "Scripts", "python.exe"
+        )
+        equity_env_cmd = os.path.join(
+            base_dir, "app_envs", "env_energy", "equity", "main.py"
+        )
+        equity_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "energy.bat"
+        )
         equity_del_path = os.path.join(base_dir, "app_envs", "env_energy")
-        equity_solve = os.path.join(base_dir,"app_envs", "env_energy", "glpk", "GLPK-4.65", "w64" )
-        equity_back = app_manager(equity_env_path, equity_env_act, equity_env_cmd, equity_script_path, del_path, equity_del_path, equity_solve)
+        equity_solve = os.path.join(
+            base_dir, "app_envs", "env_energy", "glpk", "GLPK-4.65", "w64"
+        )
+        equity_back = app_manager(
+            equity_env_path,
+            equity_env_act,
+            equity_env_cmd,
+            equity_script_path,
+            del_path,
+            equity_del_path,
+            equity_solve,
+        )
         self.equity_obj = gui_connector(equity_front, equity_back, equity_env_path)
 
         equity_about_button = equity_front.about_button
-        equity_page = self.add_info_page.add_page("QuESt Energy Equity", "David Rosewater dmrose@sandia.gov", "An application for assessing energy equity and environmental justice of energy storage projects. This application currently has the powerplant replacement wizard that estimates the health and climate benefits of substituting a powerplant with energy storage and PV. It then calculates the county level benefits to estimate how much the project would impact disadvantaged communities and people with low incomes.")
+        equity_page = self.add_info_page.add_page(
+            "QuESt Energy Equity",
+            "David Rosewater dmrose@sandia.gov",
+            "An application for assessing energy equity and environmental justice of energy storage projects. This application currently has the powerplant replacement wizard that estimates the health and climate benefits of substituting a powerplant with energy storage and PV. It then calculates the county level benefits to estimate how much the project would impact disadvantaged communities and people with low incomes.",
+        )
         self.add_info_page.connect_about(equity_about_button, equity_page)
 
-        #self.gridLayout.addWidget(equity_front, 1, 3)
+        # self.gridLayout.addWidget(equity_front, 1, 3)
 
-        #Planning app
+        # Planning app
         plan_front = form_apps()
         plan_image = os.path.join(base_dir, "images", "logo", "custom_QP_logo.png")
         plan_image = plan_image.replace("\\", "/")
         plan_front.app_image.setStyleSheet(f"image: url({plan_image});")
 
-        plan_env_path = os.path.join(base_dir, "app_envs", "env_planning", "snl_quest_planning")
-        plan_env_act = os.path.join(base_dir, "app_envs", "env_planning", "Scripts", "python.exe")
+        plan_env_path = os.path.join(
+            base_dir, "app_envs", "env_planning", "snl_quest_planning"
+        )
+        plan_env_act = os.path.join(
+            base_dir, "app_envs", "env_planning", "Scripts", "python.exe"
+        )
 
         plan_env_cmd = "quest_planning"
-        plan_script_path = os.path.join(base_dir, "app", "tools", "script_files", "plan.bat")
+        plan_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "plan.bat"
+        )
         plan_del_path = os.path.join(base_dir, "app_envs", "env_planning")
-        plan_solve = os.path.join(base_dir,"app_envs", "env_planning", "glpk", "GLPK-4.65", "w64" )
+        plan_solve = os.path.join(
+            base_dir, "app_envs", "env_planning", "glpk", "GLPK-4.65", "w64"
+        )
 
-        plan_back = app_manager(plan_env_path, plan_env_act, plan_env_cmd, plan_script_path, del_path, plan_del_path, plan_solve, mod)
+        plan_back = app_manager(
+            plan_env_path,
+            plan_env_act,
+            plan_env_cmd,
+            plan_script_path,
+            del_path,
+            plan_del_path,
+            plan_solve,
+            mod,
+        )
         self.plan_obj = gui_connector(plan_front, plan_back, plan_env_path)
 
         plan_about_button = plan_front.about_button
-        plan_page = self.add_info_page.add_page("QuESt Planning", "Cody Newlun cjnewlu@sandia.gov", "QuESt Planning is a long-term capacity expansion planning model that identifies cost-optimal energy storage, generation, and transmission investments and evaluates a broad range of energy storage technologies.")
+        plan_page = self.add_info_page.add_page(
+            "QuESt Planning",
+            "Cody Newlun cjnewlu@sandia.gov",
+            "QuESt Planning is a long-term capacity expansion planning model that identifies cost-optimal energy storage, generation, and transmission investments and evaluates a broad range of energy storage technologies.",
+        )
         self.add_info_page.connect_about(plan_about_button, plan_page)
 
         self.gridLayout.addWidget(plan_front, 2, 0)
 
-
-        #Progress app
+        # Progress app
         progress_front = form_apps()
-        progress_image = os.path.join(base_dir, "images", "logo", "progress_transparent_alt.png")
+        progress_image = os.path.join(
+            base_dir, "images", "logo", "progress_transparent_alt.png"
+        )
         progress_image = progress_image.replace("\\", "/")
         progress_front.app_image.setStyleSheet(f"image: url({progress_image});")
 
-        progress_env_path = os.path.join(base_dir, "app_envs", "env_progress", "snl_quest_progress")
-        progress_env_act = os.path.join(base_dir, "app_envs", "env_progress", "Scripts", "python.exe")
+        progress_env_path = os.path.join(
+            base_dir, "app_envs", "env_progress", "snl_quest_progress"
+        )
+        progress_env_act = os.path.join(
+            base_dir, "app_envs", "env_progress", "Scripts", "python.exe"
+        )
 
         progress_env_cmd = "progress"
-        progress_script_path = os.path.join(base_dir, "app", "tools", "script_files", "progress.bat")
+        progress_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "progress.bat"
+        )
         progress_del_path = os.path.join(base_dir, "app_envs", "env_progress")
-        progress_solve = os.path.join(base_dir,"app_envs", "env_progress", "glpk", "GLPK-4.65", "w64" )
+        progress_solve = os.path.join(
+            base_dir, "app_envs", "env_progress", "glpk", "GLPK-4.65", "w64"
+        )
 
-        progress_back = app_manager(progress_env_path, progress_env_act, progress_env_cmd, progress_script_path, del_path, progress_del_path, progress_solve, mod)
-        self.progress_obj = gui_connector(progress_front, progress_back, progress_env_path)
+        progress_back = app_manager(
+            progress_env_path,
+            progress_env_act,
+            progress_env_cmd,
+            progress_script_path,
+            del_path,
+            progress_del_path,
+            progress_solve,
+            mod,
+        )
+        self.progress_obj = gui_connector(
+            progress_front, progress_back, progress_env_path
+        )
 
         progress_about_button = progress_front.about_button
-        progress_page = self.add_info_page.add_page("QuESt Progress", "Atri Bera abera@sandia.gov", "QuESt Progress is a python-based open-source tool for assessing the resource adequacy of the evolving electric power grid integrated with energy storage systems.")
+        progress_page = self.add_info_page.add_page(
+            "QuESt Progress",
+            "Atri Bera abera@sandia.gov",
+            "QuESt Progress is a python-based open-source tool for assessing the resource adequacy of the evolving electric power grid integrated with energy storage systems.",
+        )
         self.add_info_page.connect_about(progress_about_button, progress_page)
 
         self.gridLayout.addWidget(progress_front, 1, 3)
-
 
         # #AFR app
         # afr_front = form_apps()
@@ -482,7 +694,7 @@ class home_page(QWidget, Ui_home_page):
         # self.add_info_page.connect_about(afr_about_button, afr_page)
 
         # self.gridLayout.addWidget(afr_front, 1, 3)
-##      place holder formats
+        ##      place holder formats
         # #Planning app place holder
         # self.plan_front = form_apps()
         # self.plan_front.progress_bar.setValue(0)
@@ -499,54 +711,119 @@ class home_page(QWidget, Ui_home_page):
 
         # self.gridLayout.addWidget(self.plan_front, 2, 0)
 
-    # Calculator App 
+        # Calculator App
         calc_front = form_apps()
-        calc_image = os.path.join(base_dir, "images", "logo", "Quest_Calculator_Logo_RGB.png")
+        calc_image = os.path.join(
+            base_dir, "images", "logo", "Quest_Calculator_Logo_RGB.png"
+        )
         calc_image = calc_image.replace("\\", "/")
         calc_front.app_image.setStyleSheet(f"image: url({calc_image});")
-        
+
         calc_env_path = os.path.join(base_dir, "app_envs", "env_calculator")
-        calc_env_act = os.path.join(base_dir, "app_envs", "env_calculator", "Scripts", "python.exe")
-        calc_env_cmd = "calculator" # name of the modular folder in github repo
-        calc_script_path = os.path.join(base_dir, "app", "tools", "script_files", "calc.bat")
+        calc_env_act = os.path.join(
+            base_dir, "app_envs", "env_calculator", "Scripts", "python.exe"
+        )
+        calc_env_cmd = "calculator"  # name of the modular folder in github repo
+        calc_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "calc.bat"
+        )
         calc_del_name = os.path.join(base_dir, "app_envs", "env_calculator")
-        calc_solve = os.path.join(base_dir, "app_envs", "env_calculator", "glpk", "GLPK-4.65", "w64")
-        calc_back = app_manager(calc_env_path, calc_env_act, calc_env_cmd, calc_script_path, del_path, calc_del_name, calc_solve, mod)
+        calc_solve = os.path.join(
+            base_dir, "app_envs", "env_calculator", "glpk", "GLPK-4.65", "w64"
+        )
+        calc_back = app_manager(
+            calc_env_path,
+            calc_env_act,
+            calc_env_cmd,
+            calc_script_path,
+            del_path,
+            calc_del_name,
+            calc_solve,
+            mod,
+        )
         self.calc_obj = gui_connector(calc_front, calc_back, calc_env_path)
-        
-        calc_page = self.add_info_page.add_page("QuESt Calculator", "Eriel Cabrera eecabre@sandia.gov", "An application for basic arthmetic housed inside the QuESt platform. This tool can do addition, subtraction, multiplication, and divison.")
-        
+
+        calc_page = self.add_info_page.add_page(
+            "QuESt Calculator",
+            "Eriel Cabrera eecabre@sandia.gov",
+            "An application for basic arthmetic housed inside the QuESt platform. This tool can do addition, subtraction, multiplication, and divison.",
+        )
+
         calc_about_button = calc_front.about_button
         self.add_info_page.connect_about(calc_about_button, calc_page)
         self.gridLayout.addWidget(calc_front, 2, 1)
 
+        # PCM Tool
+        pcm_front = form_apps()
+        pcm_image = os.path.join(
+            base_dir, "images", "logo", "Quest_PCMTool_Logo_RGB.png"
+        )
+        pcm_image = pcm_image.replace("\\", "/")
+        pcm_front.app_image.setStyleSheet(f"image: url({pcm_image});")
 
-#           connecting the search bar funtion
+        pcm_env_path = os.path.join(base_dir, "app_envs", "env_pcm")
+        pcm_env_act = os.path.join(
+            base_dir, "app_envs", "env_pcm", "Scripts", "python.exe"
+        )
+        pcm_env_cmd = "quest_PCM"
+        pcm_script_path = os.path.join(
+            base_dir, "app", "tools", "script_files", "pcm.bat"
+        )
+        pcm_del_path = os.path.join(base_dir, "app_envs", "env_pcm")
+        pcm_solve = os.path.join(
+            base_dir, "app_envs", "env_pcm", "glpk", "GLPK-4.65", "w64"
+        )
+        pcm_back = app_manager(
+            pcm_env_path,
+            pcm_env_act,
+            pcm_env_cmd,
+            pcm_script_path,
+            del_path,
+            pcm_del_path,
+            pcm_solve,
+            mod,
+        )
+        self.pcm_obj = gui_connector(pcm_front, pcm_back, pcm_env_path)
+
+        pcm_page = self.add_info_page.add_page(
+            "QuESt PCM",
+            "Dilip Pandit dpandit@sandia.gov",
+            "QuESt PCM is a production cost modeling tool that evaluates system operations with advanced modeling of diverse energy storage technologies.",
+        )
+
+        pcm_about_button = pcm_front.about_button
+        self.add_info_page.connect_about(pcm_about_button, pcm_page)
+        self.gridLayout.addWidget(pcm_front, 2, 2)
+
+        # connecting the search bar funtion
 
         self.lineEdit.setPlaceholderText("Search apps")
         self.lineEdit.textChanged.connect(self.update_display)
 
-#       hide the about window
+        # hide the about window
         self.about_hide.clicked.connect(self.about_hide_window_btn)
 
     def about_hide_window_btn(self):
-         """Button to minimize the about drop down page on the homescreen."""
-         height = self.about_info.height()
+        """Button to minimize the about drop down page on the homescreen."""
+        height = self.about_info.height()
 
-         if height == 0:
+        if height == 0:
             newheight = 450
 
-         else:
-           newheight = 0
+        else:
+            newheight = 0
 
-         self.animation = QPropertyAnimation(self.about_info, b"maximumHeight")
-         self.animation.setDuration(250)
-         self.animation.setStartValue(height)
-         self.animation.setEndValue(newheight)
-         self.animation.setEasingCurve(QEasingCurve.InOutQuart)
-         self.animation.start()
+        self.animation = QPropertyAnimation(self.about_info, b"maximumHeight")
+        self.animation.setDuration(250)
+        self.animation.setStartValue(height)
+        self.animation.setEndValue(newheight)
+        self.animation.setEasingCurve(QEasingCurve.InOutQuart)
+        self.animation.start()
 
-    def update_display(self, text,):
+    def update_display(
+        self,
+        text,
+    ):
         """Dynamic update of visible apps."""
         tech_selection = self.tech_obj.front.app_search
         evaluation = self.eval_obj.front.app_search
@@ -559,15 +836,25 @@ class home_page(QWidget, Ui_home_page):
         data_manager = self.data_man_obj.front.app_search
         energy_equity = self.equity_obj.front.app_search
         calculator = self.calc_obj.front.app_search
+        pcm = self.pcm_obj.front.app_search
         # analysis_for_regulators = self.afr_obj.front.app_search
-
 
         # list of apps to search
         self.widget_names = [
-            "tech_selection", "evaluation", "behind_the_meter",
-            "performance", "energy_equity", "microgrid", "planning", "data_gpt", "data_manager", "progress", "calculator"
-            ]
-        
+            "tech_selection",
+            "evaluation",
+            "behind_the_meter",
+            "performance",
+            "energy_equity",
+            "microgrid",
+            "planning",
+            "data_gpt",
+            "data_manager",
+            "progress",
+            "calculator",
+            "pcm",
+        ]
+
         # search text
         search_text = text.strip().lower()
 
@@ -591,5 +878,6 @@ class home_page(QWidget, Ui_home_page):
 
         #         eval(widget).setVisible(False)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     home_page()
