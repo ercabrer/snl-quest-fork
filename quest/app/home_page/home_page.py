@@ -757,7 +757,7 @@ class home_page(QWidget, Ui_home_page):
         pcm_front = form_apps()
         pcm_image = os.path.join(
             base_dir, "images", "logo", "Quest_PCMTool_Logo_RGB.png"
-        )
+        )   
         pcm_image = pcm_image.replace("\\", "/")
         pcm_front.app_image.setStyleSheet(f"image: url({pcm_image});")
 
@@ -765,7 +765,7 @@ class home_page(QWidget, Ui_home_page):
         pcm_env_act = os.path.join(
             base_dir, "app_envs", "env_pcm", "Scripts", "python.exe"
         )
-        pcm_env_cmd = "quest_PCM"
+        pcm_env_cmd = "pcm"
         pcm_script_path = os.path.join(
             base_dir, "app", "tools", "script_files", "pcm.bat"
         )
