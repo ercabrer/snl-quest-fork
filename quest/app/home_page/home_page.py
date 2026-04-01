@@ -238,7 +238,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.add_info_page = info_drop(about, stacked)
 
-        # Tech Selection app
+        # ===== Tech Selection app =====
         tech_front = form_apps()
         tech_image = os.path.join(base_dir, "images", "logo", "Quest_Tech_Logo_RGB.png")
         tech_image = tech_image.replace("\\", "/")
@@ -277,7 +277,7 @@ class home_page(QWidget, Ui_home_page):
         self.add_info_page.connect_about(tech_about_button, tech_page)
         self.gridLayout.addWidget(tech_front, 0, 0)
 
-        # Evaluation app
+        # ===== Evaluation app =====
         eval_front = form_apps()
         eval_image = os.path.join(
             base_dir, "images", "logo", "Quest_EvaluationLogo_RGB.png"
@@ -319,7 +319,7 @@ class home_page(QWidget, Ui_home_page):
         self.add_info_page.connect_about(eval_about_button, eval_page)
         self.gridLayout.addWidget(eval_front, 0, 1)
 
-        # Performance app
+        # ===== Performance app =====
         perf_front = form_apps()
         perf_image = os.path.join(base_dir, "images", "logo", "Quest_Perf_Logo_RGB.png")
         perf_image = perf_image.replace("\\", "/")
@@ -359,7 +359,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.gridLayout.addWidget(perf_front, 0, 2)
 
-        # Behind the meter app
+        # ===== Behind the meter app =====
         btm_front = form_apps()
         btm_image = os.path.join(base_dir, "images", "logo", "Quest_BTN_Logo_RGB.png")
         btm_image = btm_image.replace("\\", "/")
@@ -399,7 +399,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.gridLayout.addWidget(btm_front, 0, 3)
 
-        # Microgrid app
+        # ===== Microgrid app =====
         micro_front = form_apps()
         micro_image = os.path.join(
             base_dir, "images", "logo", "Quest_Microgrid_Logo_RGB.png"
@@ -454,7 +454,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.gridLayout.addWidget(micro_front, 1, 0)
 
-        # Data GPT app
+        # ===== Data GPT app =====
         gpt_front = form_apps()
         gpt_image = os.path.join(base_dir, "images", "logo", "Quest_Logo_RGB - GPT.png")
         gpt_image = gpt_image.replace("\\", "/")
@@ -493,7 +493,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.gridLayout.addWidget(gpt_front, 1, 1)
 
-        # Data manager app
+        # ===== Data manager app =====
         data_man_front = form_apps()
         data_man_image = os.path.join(
             base_dir, "images", "logo", "Quest_Datamanager_Logo_RGB.png"
@@ -537,7 +537,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.gridLayout.addWidget(data_man_front, 1, 2)
 
-        # Energy Equity app
+        # ===== Energy Equity app =====
         equity_front = form_apps()
         equity_image = os.path.join(
             base_dir, "images", "logo", "Quest_Equity_Logo_RGB.png"
@@ -580,7 +580,7 @@ class home_page(QWidget, Ui_home_page):
 
         # self.gridLayout.addWidget(equity_front, 1, 3)
 
-        # Planning app
+        # ===== Planning app =====
         plan_front = form_apps()
         plan_image = os.path.join(base_dir, "images", "logo", "custom_QP_logo.png")
         plan_image = plan_image.replace("\\", "/")
@@ -624,7 +624,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.gridLayout.addWidget(plan_front, 2, 0)
 
-        # Progress app
+        # ===== Progress app =====
         progress_front = form_apps()
         progress_image = os.path.join(
             base_dir, "images", "logo", "progress_transparent_alt.png"
@@ -672,7 +672,7 @@ class home_page(QWidget, Ui_home_page):
 
         self.gridLayout.addWidget(progress_front, 1, 3)
 
-        # #AFR app
+        # ===== AFR app =====
         # afr_front = form_apps()
         # afr_image = os.path.join(base_dir, "images", "logo", "Quest_Logo_AFR.png")
         # afr_image = afr_image.replace("\\", "/")
@@ -711,49 +711,49 @@ class home_page(QWidget, Ui_home_page):
 
         # self.gridLayout.addWidget(self.plan_front, 2, 0)
 
-        # Calculator App
-        calc_front = form_apps()
-        calc_image = os.path.join(
-            base_dir, "images", "logo", "Quest_Calculator_Logo_RGB.png"
-        )
-        calc_image = calc_image.replace("\\", "/")
-        calc_front.app_image.setStyleSheet(f"image: url({calc_image});")
+        # # Calculator App
+        # calc_front = form_apps()
+        # calc_image = os.path.join(
+        #     base_dir, "images", "logo", "Quest_Calculator_Logo_RGB.png"
+        # )
+        # calc_image = calc_image.replace("\\", "/")
+        # calc_front.app_image.setStyleSheet(f"image: url({calc_image});")
 
-        calc_env_path = os.path.join(base_dir, "app_envs", "env_calculator")
-        calc_env_act = os.path.join(
-            base_dir, "app_envs", "env_calculator", "Scripts", "python.exe"
-        )
-        calc_env_cmd = "calculator"  # name of the modular folder in github repo
-        calc_script_path = os.path.join(
-            base_dir, "app", "tools", "script_files", "calc.bat"
-        )
-        calc_del_name = os.path.join(base_dir, "app_envs", "env_calculator")
-        calc_solve = os.path.join(
-            base_dir, "app_envs", "env_calculator", "glpk", "GLPK-4.65", "w64"
-        )
-        calc_back = app_manager(
-            calc_env_path,
-            calc_env_act,
-            calc_env_cmd,
-            calc_script_path,
-            del_path,
-            calc_del_name,
-            calc_solve,
-            mod,
-        )
-        self.calc_obj = gui_connector(calc_front, calc_back, calc_env_path)
+        # calc_env_path = os.path.join(base_dir, "app_envs", "env_calculator")
+        # calc_env_act = os.path.join(
+        #     base_dir, "app_envs", "env_calculator", "Scripts", "python.exe"
+        # )
+        # calc_env_cmd = "calculator"  # name of the modular folder in github repo
+        # calc_script_path = os.path.join(
+        #     base_dir, "app", "tools", "script_files", "calc.bat"
+        # )
+        # calc_del_name = os.path.join(base_dir, "app_envs", "env_calculator")
+        # calc_solve = os.path.join(
+        #     base_dir, "app_envs", "env_calculator", "glpk", "GLPK-4.65", "w64"
+        # )
+        # calc_back = app_manager(
+        #     calc_env_path,
+        #     calc_env_act,
+        #     calc_env_cmd,
+        #     calc_script_path,
+        #     del_path,
+        #     calc_del_name,
+        #     calc_solve,
+        #     mod,
+        # )
+        # self.calc_obj = gui_connector(calc_front, calc_back, calc_env_path)
 
-        calc_page = self.add_info_page.add_page(
-            "QuESt Calculator",
-            "Eriel Cabrera eecabre@sandia.gov",
-            "An application for basic arthmetic housed inside the QuESt platform. This tool can do addition, subtraction, multiplication, and divison.",
-        )
+        # calc_page = self.add_info_page.add_page(
+        #     "QuESt Calculator",
+        #     "Eriel Cabrera eecabre@sandia.gov",
+        #     "An application for basic arthmetic housed inside the QuESt platform. This tool can do addition, subtraction, multiplication, and divison.",
+        # )
 
-        calc_about_button = calc_front.about_button
-        self.add_info_page.connect_about(calc_about_button, calc_page)
-        self.gridLayout.addWidget(calc_front, 2, 1)
+        # calc_about_button = calc_front.about_button
+        # self.add_info_page.connect_about(calc_about_button, calc_page)
+        # self.gridLayout.addWidget(calc_front, 2, 2)
 
-        # PCM Tool
+        # ===== PCM Tool =====
         pcm_front = form_apps()
         pcm_image = os.path.join(
             base_dir, "images", "logo", "Quest_PCMTool_Logo_RGB.png"
@@ -793,7 +793,7 @@ class home_page(QWidget, Ui_home_page):
 
         pcm_about_button = pcm_front.about_button
         self.add_info_page.connect_about(pcm_about_button, pcm_page)
-        self.gridLayout.addWidget(pcm_front, 2, 2)
+        self.gridLayout.addWidget(pcm_front, 2, 1)
 
         # connecting the search bar funtion
 
