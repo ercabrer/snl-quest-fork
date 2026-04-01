@@ -101,8 +101,10 @@ sudo apt-get install -y python3-dev libblas-dev liblapack-dev gfortran
 mkdir -p "$VENV_PATH/$pcm_dir"
 
 # Clone the GitHub repository
-git clone https://github.com/ercabrer/quest_PCM "$VENV_PATH/snl_quest_pcm"
+git clone --branch quest_integration --single-branch https://github.com/sandialabs/quest_PCM/ "$VENV_PATH/snl_quest_pcm"
+# git clone https://github.com/ercabrer/quest_PCM "$VENV_PATH/snl_quest_pcm"
 # git clone --branch numpy_upgrade --single-branch https://github.com/ercabrer/quest_PCM "$VENV_PATH/snl_quest_pcm"
+# git clone --branch <branch_name> --single-branch https://github.com/ercaber/quest_PCM "VENV_PATH/snl_quest_pcm"
 
 # Install using setup.py
 pip install -e "$SETUP_PATH"
