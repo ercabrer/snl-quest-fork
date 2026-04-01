@@ -757,7 +757,7 @@ class home_page(QWidget, Ui_home_page):
         pcm_front = form_apps()
         pcm_image = os.path.join(
             base_dir, "images", "logo", "Quest_PCMTool_Logo_RGB.png"
-        )   
+        )
         pcm_image = pcm_image.replace("\\", "/")
         pcm_front.app_image.setStyleSheet(f"image: url({pcm_image});")
 

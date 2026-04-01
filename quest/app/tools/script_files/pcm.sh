@@ -102,6 +102,7 @@ mkdir -p "$VENV_PATH/$pcm_dir"
 
 # Clone the GitHub repository
 git clone https://github.com/ercabrer/quest_PCM "$VENV_PATH/snl_quest_pcm"
+# git clone --branch numpy_upgrade --single-branch https://github.com/ercabrer/quest_PCM "$VENV_PATH/snl_quest_pcm"
 
 # Install using setup.py
 pip install -e "$SETUP_PATH"
