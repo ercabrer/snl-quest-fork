@@ -6,7 +6,7 @@ DISTNAME = "Quest"
 VERSION = __version__
 PYTHON_REQUIRES = ">=3.9, <3.14"
 DESCRIPTION = "Sandia National Laboratories Energy Storage Application Platform"
-LONG_DESCRIPTION = open("README.md").read()
+LONG_DESCRIPTION = open("README.md", encoding="utf-8").read()
 AUTHOR = "Sandia National Laboratories"
 MAINTAINER_EMAIL = "tunguy@sandia.gov"
 LICENSE = "BSD 3-clause"
@@ -29,6 +29,7 @@ setup(
     ],
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
     author=AUTHOR,
     maintainer_email=MAINTAINER_EMAIL,
     license=LICENSE,
