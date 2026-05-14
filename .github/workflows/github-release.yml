@@ -101,6 +101,19 @@ jobs:
           sudo mkdir -p /usr/local/opt/libiodbc/lib
           sudo ln -sf "$prefix/lib/libiodbc.2.dylib" /usr/local/opt/libiodbc/lib/libiodbc.2.dylib
 
+      - name: Remove optional Qt SQL drivers
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import PySide6
+
+          plugin_dir = Path(PySide6.__file__).resolve().parent / "Qt" / "plugins" / "sqldrivers"
+          for pattern in ("*qsqlodbc*", "*qsqlpsql*"):
+              for path in plugin_dir.glob(pattern):
+                  print(f"Removing optional Qt SQL driver: {path}")
+                  path.unlink()
+          PY
+
       - name: Build desktop application
         run: python setup_cx.py build
 
