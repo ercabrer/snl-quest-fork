@@ -3,7 +3,7 @@
 ## Summary
 
 Add release summary text here.
-test MAY 14
+test MAY 14 RELEASE NOT PRELEASE
 
 ## Added
 
