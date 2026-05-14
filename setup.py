@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 from quest import __version__
 
-DISTNAME = "Quest"
+DISTNAME = "snl-questfy26"
 VERSION = __version__
 PYTHON_REQUIRES = ">=3.9, <3.14"
 DESCRIPTION = "Sandia National Laboratories Energy Storage Application Platform"
@@ -41,18 +41,49 @@ setup(
         "openai==1.86.0",
         "psutil==5.9.0",
         "GitPython==3.1.43",
-        'NodeGraphQt==0.5.2',
+        "NodeGraphQt==0.5.2",
         "notebook==7.5.5",
-        "nbformat==5.10.4"
+        "nbformat==5.10.4",
     ],
-
     package_data={
-        '': ['*.txt', '*.rst', '*.json', '*.jpg', '*.qss', '*.sh', '*.svg', '*.png', '*.kv', '*.bat', '*.csv', '*.md', '*.yml', '*.dll', '*.idf', '*.doctree', '.*info', '*.html', '*.js', '*.inv', '*.gif', '*.css', '*.eps', '*.pickle', '*.xlsx', '*.ttf', '*.pdf', '**/license*', '*.yml', '*.ui', '*.eot', '*.woff', '*.woff2', 'LICENSE', '*.mplstyle', '*.ini' ],
+        "": [
+            "*.txt",
+            "*.rst",
+            "*.json",
+            "*.jpg",
+            "*.qss",
+            "*.sh",
+            "*.svg",
+            "*.png",
+            "*.kv",
+            "*.bat",
+            "*.csv",
+            "*.md",
+            "*.yml",
+            "*.dll",
+            "*.idf",
+            "*.doctree",
+            ".*info",
+            "*.html",
+            "*.js",
+            "*.inv",
+            "*.gif",
+            "*.css",
+            "*.eps",
+            "*.pickle",
+            "*.xlsx",
+            "*.ttf",
+            "*.pdf",
+            "**/license*",
+            "*.yml",
+            "*.ui",
+            "*.eot",
+            "*.woff",
+            "*.woff2",
+            "LICENSE",
+            "*.mplstyle",
+            "*.ini",
+        ],
     },
-
-    entry_points={
-        'console_scripts': [
-            'quest = quest.__main__:main'
-        ]
-    }
+    entry_points={"console_scripts": ["quest = quest.__main__:main"]},
 )
