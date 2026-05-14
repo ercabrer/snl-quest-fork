@@ -102,6 +102,7 @@ jobs:
           sudo ln -sf "$prefix/lib/libiodbc.2.dylib" /usr/local/opt/libiodbc/lib/libiodbc.2.dylib
 
       - name: Remove optional Qt SQL drivers
+        if: runner.os == 'macOS'
         run: |
           python - <<'PY'
           from pathlib import Path
