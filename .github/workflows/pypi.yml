@@ -28,26 +28,10 @@ jobs:
           python-version: "3.13"
 
       - name: Install build tooling
-        run: python -m pip install --upgrade pip build twine
+        run: python -m pip install --upgrade pip setuptools wheel twine
 
       - name: Build source and wheel distributions
-        run: |
-          python - <<'PY'
-          import pathlib
-          import sys
-
-          repo_root = pathlib.Path.cwd().resolve()
-          sys.path = [path for path in sys.path if path not in ("", str(repo_root))]
-
-          import build
-
-          output_dir = repo_root / "dist"
-          output_dir.mkdir(exist_ok=True)
-          builder = build.ProjectBuilder(str(repo_root))
-
-          for distribution in ("sdist", "wheel"):
-              builder.build(distribution, str(output_dir))
-          PY
+        run: python setup.py sdist bdist_wheel
 
       - name: Validate built distributions
         run: python -m twine check dist/*

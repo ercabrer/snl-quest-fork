@@ -35,7 +35,7 @@ jobs:
           version="$(tr -d '\r\n' < version.txt)"
           echo "tag_name=$version" >> "$GITHUB_OUTPUT"
           echo "release_name=QuESt $version" >> "$GITHUB_OUTPUT"
-          if echo "$v ersion" | grep -Eq '[A-Za-z]'; then
+          if echo "$version" | grep -Eq '[A-Za-z]'; then
             echo "prerelease=true" >> "$GITHUB_OUTPUT"
           else
             echo "prerelease=false" >> "$GITHUB_OUTPUT"
