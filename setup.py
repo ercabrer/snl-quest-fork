@@ -2,11 +2,11 @@ from setuptools import setup, find_packages
 
 from quest import __version__
 
-DISTNAME = "snl-questfy26"
+DISTNAME = "Quest"
 VERSION = __version__
 PYTHON_REQUIRES = ">=3.9, <3.14"
 DESCRIPTION = "Sandia National Laboratories Energy Storage Application Platform"
-LONG_DESCRIPTION = open("README.md", encoding="utf-8").read()
+LONG_DESCRIPTION = open("README.md").read()
 AUTHOR = "Sandia National Laboratories"
 MAINTAINER_EMAIL = "tunguy@sandia.gov"
 LICENSE = "BSD 3-clause"
@@ -29,7 +29,6 @@ setup(
     ],
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    long_description_content_type="text/markdown",
     author=AUTHOR,
     maintainer_email=MAINTAINER_EMAIL,
     license=LICENSE,
@@ -41,49 +40,18 @@ setup(
         "openai==1.86.0",
         "psutil==5.9.0",
         "GitPython==3.1.43",
-        "NodeGraphQt==0.5.2",
+        'NodeGraphQt @ git+https://github.com/cancom84/NodeGraphQt-PySide6.git',
         "notebook==7.5.5",
-        "nbformat==5.10.4",
+        "nbformat==5.10.4"
     ],
+
     package_data={
-        "": [
-            "*.txt",
-            "*.rst",
-            "*.json",
-            "*.jpg",
-            "*.qss",
-            "*.sh",
-            "*.svg",
-            "*.png",
-            "*.kv",
-            "*.bat",
-            "*.csv",
-            "*.md",
-            "*.yml",
-            "*.dll",
-            "*.idf",
-            "*.doctree",
-            ".*info",
-            "*.html",
-            "*.js",
-            "*.inv",
-            "*.gif",
-            "*.css",
-            "*.eps",
-            "*.pickle",
-            "*.xlsx",
-            "*.ttf",
-            "*.pdf",
-            "**/license*",
-            "*.yml",
-            "*.ui",
-            "*.eot",
-            "*.woff",
-            "*.woff2",
-            "LICENSE",
-            "*.mplstyle",
-            "*.ini",
-        ],
+        '': ['*.txt', '*.rst', '*.json', '*.jpg', '*.qss', '*.sh', '*.svg', '*.png', '*.kv', '*.bat', '*.csv', '*.md', '*.yml', '*.dll', '*.idf', '*.doctree', '.*info', '*.html', '*.js', '*.inv', '*.gif', '*.css', '*.eps', '*.pickle', '*.xlsx', '*.ttf', '*.pdf', '**/license*', '*.yml', '*.ui', '*.eot', '*.woff', '*.woff2', 'LICENSE', '*.mplstyle', '*.ini' ],
     },
-    entry_points={"console_scripts": ["quest = quest.__main__:main"]},
+
+    entry_points={
+        'console_scripts': [
+            'quest = quest.__main__:main'
+        ]
+    }
 )
