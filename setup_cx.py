@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from cx_Freeze import setup, Executable
 
-DISTNAME = "Quest"
+DISTNAME = "snl-questfy26"
 VERSION = "2.1.0"
 PYTHON_REQUIRES = ">=3.9, <3.14"
 DESCRIPTION = "Sandia National Laboratories Energy Storage Application Platform"
@@ -12,8 +12,8 @@ LICENSE = "BSD 3-clause"
 URL = "https://github.com/sandialabs/snl-quest.git"
 
 options = {
-    'build_exe': {
-        'packages': [
+    "build_exe": {
+        "packages": [
             "PySide6",
             "pandas",
             "streamlit",
@@ -21,12 +21,12 @@ options = {
             "psutil",
             "NodeGraphQt",
             "notebook",
-            "nbformat"
+            "nbformat",
         ],
-        'include_files': [
+        "include_files": [
             ("README.md", "README.md"),
             ("LICENSE", "LICENSE"),
-            ("quest", "quest")
+            ("quest", "quest"),
         ],
     },
 }
@@ -55,5 +55,5 @@ setup(
     license=LICENSE,
     url=URL,
     executables=executables,
-    options=options
+    options=options,
 )
