@@ -7,6 +7,7 @@ on:
       - master
     paths:
       - version.txt
+  
 
 permissions:
   contents: write
@@ -91,6 +92,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel cx_Freeze
           python -m pip install .
+
+      - name: Install macOS system libraries
+        if: runner.os == 'macOS'
+        run: |
+          brew install libiodbc
+          prefix="$(brew --prefix libiodbc)"
+          sudo mkdir -p /usr/local/opt/libiodbc/lib
+          sudo ln -sf "$prefix/lib/libiodbc.2.dylib" /usr/local/opt/libiodbc/lib/libiodbc.2.dylib
 
       - name: Build desktop application
         run: python setup_cx.py build
