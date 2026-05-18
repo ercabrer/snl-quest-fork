@@ -14,16 +14,21 @@ on:
         type: boolean
         default: false
 
+env:
+  PKG_NAME: snl-questfy26
+
 jobs:
   check-version:
     runs-on: ubuntu-latest
     outputs:
       is_prerelease: ${{ steps.check.outputs.is_prerelease }}
+      pkg_name: ${{ steps.check.outputs.pkg_name }}
     steps:
       - uses: actions/checkout@v4
       - id: check
         run: |
           version="$(tr -d '\r\n' < version.txt)"
+           echo "pkg_name=${{ env.PKG_NAME }}" >> "$GITHUB_OUTPUT"
           if echo "$version" | grep -Eq '[A-Za-z]'; then
             echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
           else
@@ -50,6 +55,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+
+      - name: Clean egg-info
+        run: rm -rf ${{ env.PKG_NAME }}.egg-info
 
       - name: Install build tooling
         run: python -m pip install --upgrade pip setuptools wheel twine
