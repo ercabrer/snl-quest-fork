@@ -64,7 +64,7 @@ jobs:
       - name: Clear large directories
         run: |
           find quest/app_envs -mindepth 1 -delete
-          find quest/snl_libraries -mindepth 1 -delete
+     
 
       - name: Install build tooling
         run: python -m pip install --upgrade pip setuptools wheel twine
