@@ -51,6 +51,7 @@ setup(
         "notebook==7.5.5",
         "nbformat==5.10.4",
     ],
+    package_data={"quest": ["version.txt"]},
     # package_data={
     #     "": [
     #         "*.txt",
