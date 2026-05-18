@@ -14,6 +14,8 @@ permissions:
 
 env:
   RELEASE_NOTES_FILE: .github/release-notes.md
+  MACOS_INSTALL_FILE: .github/scripts/install.sh
+  WINDOWS_INSTALL_FILE: .github/scripts/install.bat
 
 jobs:
   prepare-release:
@@ -92,7 +94,7 @@ jobs:
 
       - name: Copy macOS installer
         run: |
-          cp .github/scripts/install.sh \
+          cp ${{ env.MACOS_INSTALL_FILE }} \
             package/QuESt-${{ needs.prepare-release.outputs.tag_name }}/install.sh
           chmod +x \
             package/QuESt-${{ needs.prepare-release.outputs.tag_name }}/install.sh
@@ -136,7 +138,7 @@ jobs:
       - name: Copy Windows installer
         shell: pwsh
         run: |
-          Copy-Item .github/scripts/install.bat `
+          Copy-Item ${{ env.WINDOWS_INSTALL_FILE }} `
             package/QuESt-${{ needs.prepare-release.outputs.tag_name }}/install.bat
 
       - name: Repackage Windows ZIP
