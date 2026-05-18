@@ -100,15 +100,15 @@ jobs:
       - name: Copy macOS installer
         run: |
           cp ${{ env.MACOS_INSTALL_FILE }} \
-            package/Quest-${{ needs.prepare-release.outputs.tag_name }}/install.sh
+            package/quest-${{ needs.prepare-release.outputs.tag_name }}/install.sh
           chmod +x \
-            package/Quest-${{ needs.prepare-release.outputs.tag_name }}/install.sh
+            package/quest-${{ needs.prepare-release.outputs.tag_name }}/install.sh
 
       - name: Repackage macOS ZIP
         run: |
           cd package
-          zip -r ../dist/Quest-${{ needs.prepare-release.outputs.tag_name }}-macos.zip \
-            Quest-${{ needs.prepare-release.outputs.tag_name }}
+          zip -r ../dist/quest-${{ needs.prepare-release.outputs.tag_name }}-macos.zip \
+            quest-${{ needs.prepare-release.outputs.tag_name }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -144,14 +144,14 @@ jobs:
         shell: pwsh
         run: |
           Copy-Item ${{ env.WINDOWS_INSTALL_FILE }} `
-            package/Quest-${{ needs.prepare-release.outputs.tag_name }}/install.bat
+            package/quest-${{ needs.prepare-release.outputs.tag_name }}/install.bat
 
       - name: Repackage Windows ZIP
         shell: pwsh
         run: |
           Compress-Archive `
-            package/Quest-${{ needs.prepare-release.outputs.tag_name }} `
-            dist/Quest-${{ needs.prepare-release.outputs.tag_name }}-windows.zip
+            package/quest-${{ needs.prepare-release.outputs.tag_name }} `
+            dist/quest-${{ needs.prepare-release.outputs.tag_name }}-windows.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
