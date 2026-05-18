@@ -49,7 +49,7 @@ setup(
     package_data={
         "quest": [
             "version.txt",
-            "images/logo/*.png",
+            "images/**/*",
             ".streamlit/config.toml",
         ],
         "quest.app.home_page": ["*.json"],
