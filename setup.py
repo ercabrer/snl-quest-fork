@@ -38,7 +38,23 @@ setup(
         "quest.app.ui_tools.ui",
         "quest.themes",
         "quest.licenses",
+        "quest.snl_libraries",
+        "quest.snl_libraries.gpt",
+        "quest.snl_libraries.gpt.data",
+        "quest.snl_libraries.gpt.data.graphs",
+        "quest.snl_libraries.workspace",
+        "quest.snl_libraries.workspace.nodes",
+        "quest.snl_libraries.workspace.flow",
     ],
+    package_data={
+        "quest": [
+            "version.txt",
+            "images/logo/*.png",
+            ".streamlit/config.toml",
+        ],
+        "quest.app.home_page": ["*.json"],
+        "quest.themes": ["*.qss", "empty"],
+    },
     include_package_data=False,
     python_requires=PYTHON_REQUIRES,
     classifiers=[
@@ -67,7 +83,6 @@ setup(
         "notebook==7.5.5",
         "nbformat==5.10.4",
     ],
-    package_data={"quest": ["version.txt"]},
     # package_data={
     #     "": [
     #         "*.txt",
