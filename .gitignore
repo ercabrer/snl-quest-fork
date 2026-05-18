@@ -14,3 +14,4 @@ venv/
 quest_20/
 quest_20b/
 .vscode
+.DS_Store
