@@ -16,6 +16,7 @@ env:
   RELEASE_NOTES_FILE: .github/release-notes.md
   MACOS_INSTALL_FILE: .github/scripts/install.sh
   WINDOWS_INSTALL_FILE: .github/scripts/install.bat
+  PKG_NAME: snl-questfy26
 
 jobs:
   prepare-release:
@@ -23,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       tag_name: ${{ steps.meta.outputs.tag_name }}
+      pkg_name: ${{ steps.meta.outputs.pkg_name }}
       release_name: ${{ steps.meta.outputs.release_name }}
       prerelease: ${{ steps.meta.outputs.prerelease }}
 
@@ -35,6 +37,7 @@ jobs:
         run: |
           version="$(tr -d '\r\n' < version.txt)"
           echo "tag_name=$version" >> "$GITHUB_OUTPUT"
+          echo "pkg_name=${{ env.PKG_NAME }}" >> "$GITHUB_OUTPUT"
           echo "release_name=QuESt $version" >> "$GITHUB_OUTPUT"
           if echo "$version" | grep -Eq '[A-Za-z]'; then
             echo "prerelease=true" >> "$GITHUB_OUTPUT"
@@ -102,7 +105,7 @@ jobs:
         run: |
           cd package
           dir=$(ls .)
-          zip -r ../dist/quest-${{ needs.prepare-release.outputs.tag_name }}-macos.zip $dir
+          zip -r ../dist/${{ needs.prepare-release.outputs.pkg_name }}-${{ needs.prepare-release.outputs.tag_name }}-macos.zip $dir
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -146,7 +149,7 @@ jobs:
           $dir = Get-ChildItem package | Select-Object -First 1 -ExpandProperty Name
           Compress-Archive `
             package/$dir `
-            dist/quest-${{ needs.prepare-release.outputs.tag_name }}-windows.zip
+            dist/${{ needs.prepare-release.outputs.pkg_name }}-${{ needs.prepare-release.outputs.tag_name }}-windows.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 from quest import __version__
 
-DISTNAME = "Quest"
+DISTNAME = "snl-questfy26"
 VERSION = __version__
 PYTHON_REQUIRES = ">=3.9, <3.14"
 DESCRIPTION = "Sandia National Laboratories Energy Storage Application Platform"
