@@ -23,7 +23,7 @@ setup(
         "quest.themes",
         "quest.licenses",
     ],
-    include_package_data=True,
+    include_package_data=False,
     python_requires=PYTHON_REQUIRES,
     classifiers=[
         "Programming Language :: Python :: 3",
