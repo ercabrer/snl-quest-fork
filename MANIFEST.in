@@ -17,5 +17,4 @@ include quest/*.png
 include quest/*.jpg
 recursive-include quest app *
 recursive-include quest licenses *
-recursive-include quest snl_libraries *
 recursive-include quest themes *
