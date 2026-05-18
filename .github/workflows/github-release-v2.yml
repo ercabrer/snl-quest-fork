@@ -94,16 +94,15 @@ jobs:
 
       - name: Copy macOS installer
         run: |
-          cp ${{ env.MACOS_INSTALL_FILE }} \
-            package/quest-${{ needs.prepare-release.outputs.tag_name }}/install.sh
-          chmod +x \
-            package/quest-${{ needs.prepare-release.outputs.tag_name }}/install.sh
+          dir=$(ls package/)
+          cp ${{ env.MACOS_INSTALL_FILE }} package/$dir/install.sh
+          chmod +x package/$dir/install.sh
 
       - name: Repackage macOS ZIP
         run: |
           cd package
-          zip -r ../dist/quest-${{ needs.prepare-release.outputs.tag_name }}-macos.zip \
-            quest-${{ needs.prepare-release.outputs.tag_name }}
+          dir=$(ls .)
+          zip -r ../dist/quest-${{ needs.prepare-release.outputs.tag_name }}-macos.zip $dir
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -138,14 +137,15 @@ jobs:
       - name: Copy Windows installer
         shell: pwsh
         run: |
-          Copy-Item ${{ env.WINDOWS_INSTALL_FILE }} `
-            package/quest-${{ needs.prepare-release.outputs.tag_name }}/install.bat
+          $dir = Get-ChildItem package | Select-Object -First 1 -ExpandProperty Name
+          Copy-Item ${{ env.WINDOWS_INSTALL_FILE }} package/$dir/install.bat
 
       - name: Repackage Windows ZIP
         shell: pwsh
         run: |
+          $dir = Get-ChildItem package | Select-Object -First 1 -ExpandProperty Name
           Compress-Archive `
-            package/quest-${{ needs.prepare-release.outputs.tag_name }} `
+            package/$dir `
             dist/quest-${{ needs.prepare-release.outputs.tag_name }}-windows.zip
 
       - name: Upload artifact
