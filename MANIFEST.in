@@ -1,6 +1,7 @@
 prune quest/snl_libraries
 prune quest/app_envs
 include quest/*.py
+include quest/version.txt
 include quest/*.qrc
 include quest/*.json
 include quest/*.md
