@@ -1,5 +1,5 @@
-prune quest/snl_libraries
-prune quest/app_envs
+prune quest/snl_libraries/*
+prune quest/app_envs/*
 include quest/*.py
 include quest/version.txt
 include quest/*.qrc
