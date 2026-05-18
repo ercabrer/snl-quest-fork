@@ -17,7 +17,14 @@ URL = "https://github.com/sandialabs/snl-quest.git"
 setup(
     name=DISTNAME,
     version=VERSION,
-    packages=find_packages(),
+    packages=find_packages(
+        exclude=[
+            "quest.app_envs",
+            "quest.app_envs.*",
+            "quest.snl_libraries",
+            "quest.snl_libraries.*",
+        ]
+    ),
     include_package_data=True,
     python_requires=PYTHON_REQUIRES,
     classifiers=[
