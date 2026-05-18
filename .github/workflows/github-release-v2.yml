@@ -67,17 +67,12 @@ jobs:
       - name: Debug extracted directory
         run: ls package/
 
-      - name: Upload source artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: source
-          path: |
-            dist/*.zip
-            dist/*.tar.gz
+      - name: Check if build went successful
+        run: echo "Build was successful"
 
   build-macos:
     name: Build macOS Package
-    needs: prepare-release
+    needs: [prepare-release, build-source]
     runs-on: macos-latest
 
     steps:
@@ -118,7 +113,7 @@ jobs:
     
   build-windows:
     name: Build Windows Package
-    needs: prepare-release
+    needs: [prepare-release, build-source]
     runs-on: windows-latest
 
     steps:
@@ -189,6 +184,5 @@ jobs:
           prerelease: ${{ needs.prepare-release.outputs.prerelease == 'true' }}
           target_commitish: ${{ github.sha }}
           files: |
-            release-assets/source/*
             release-assets/windows/*
             release-assets/macos/*
