@@ -7,10 +7,33 @@ on:
       - master
     paths:
       - version.txt
+  workflow_dispatch:
+    inputs:
+      include_prerelease:
+        description: "Publish pre-release versions"
+        type: boolean
+        default: false
 
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      is_prerelease: ${{ steps.check.outputs.is_prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        run: |
+          version="$(tr -d '\r\n' < version.txt)"
+          if echo "$version" | grep -Eq '[A-Za-z]'; then
+            echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+
   publish:
     name: Publish to TestPyPI
+    needs: check-version
+    if: inputs.include_prerelease == true || needs.check-version.outputs.is_prerelease == 'false'
     runs-on: ubuntu-latest
     environment:
       name: release
@@ -18,6 +41,7 @@ jobs:
     permissions:
       contents: read
 
+      
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
