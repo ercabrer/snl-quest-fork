@@ -56,6 +56,13 @@ jobs:
 
       - name: Build source and wheel distributions
         run: python setup.py sdist bdist_wheel
+      
+      - name: Debug MANIFEST
+        run: |
+          cat MANIFEST.in
+          python setup.py egg_info
+          grep snl_libraries snl_questfy26.egg-info/SOURCES.txt | head -5 || echo "snl_libraries not found - good!"
+          grep app_envs snl_questfy26.egg-info/SOURCES.txt | head -5 || echo "app_envs not found - good!"
 
       - name: Validate built distributions
         run: python -m twine check dist/*
