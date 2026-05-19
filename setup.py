@@ -47,7 +47,16 @@ setup(
         "quest.snl_libraries.workspace.flow",
     ],
     package_data={
-        "": ["*", "**/*"],
+        "quest": [
+            "version.txt",
+            "images/**/*",
+            ".streamlit/config.toml",
+        ],
+        "quest.app.home_page": ["*.json"],
+        "quest.themes": ["*.qss", "empty"],
+        "quest.app.tools": ["*", "**/*"],
+        "quest.app.tools.script_files": ["*"],
+        "quest.app.tools.reqs": ["*"],
     },
     include_package_data=False,
     python_requires=PYTHON_REQUIRES,

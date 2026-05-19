@@ -24,7 +24,7 @@ jobs:
       is_prerelease: ${{ steps.check.outputs.is_prerelease }}
       pkg_name: ${{ steps.check.outputs.pkg_name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - id: check
         run: |
           version="$(tr -d '\r\n' < version.txt)"
@@ -49,7 +49,7 @@ jobs:
       
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
         uses: actions/setup-python@v5
